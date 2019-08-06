@@ -1,6 +1,6 @@
 {
   "name": "rescape-log",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "description": "Rescape logging library based on winston",
   "main": "lib/index.js",
   "module": "esm/index.js",
