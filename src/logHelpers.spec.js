@@ -10,7 +10,6 @@
  */
 
 import {loggers, rescapeDefaultTransports} from './logHelpers';
-
 const log = loggers.get('rescapeDefault');
 
 //
