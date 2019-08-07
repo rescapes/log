@@ -1,6 +1,6 @@
 {
   "name": "rescape-log",
-  "version": "0.1.6",
+  "version": "0.1.7",
   "description": "Rescape logging library based on winston",
   "main": "lib/index.js",
   "module": "esm/index.js",
@@ -66,7 +66,7 @@
     "promise": "8.0.3",
     "ramda": "^0.26.1",
     "rimraf": "^2.6.3",
-    "rollup": "^1.19.3",
+    "rollup": "^1.19.4",
     "rollup-plugin-babel": "^4.3.3",
     "rollup-plugin-commonjs": "10.0.2",
     "rollup-plugin-json": "^4.0.0",
