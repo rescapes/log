@@ -22,7 +22,13 @@ export const rescapeDefaultTransports = {
   // - Write to all logs with level `info` and below to `combined.log`
   // - Write all logs error (and below) to `error.log`.
   //
-  fileError: new transports.File({filename: '/tmp/rescape-default-error.log', level: 'error'
+  fileError: new transports.File({
+    filename: '/tmp/rescape-default-error.log',
+    level: 'error',
+    prettyPrint: true,
+    colorize: true,
+    silent: false,
+    timestamp: false
   }),
   fileCombined: new transports.File({filename: '/tmp/rescape-default-combined.log', level: 'info'}),
   // Send console info (and log if enabled) to STDOUT, error and warn to STDERR
