@@ -1,6 +1,6 @@
 {
   "name": "rescape-log",
-  "version": "0.1.9",
+  "version": "0.1.10",
   "description": "Rescape logging library based on winston",
   "main": "lib/index.js",
   "module": "esm/index.js",
@@ -39,7 +39,9 @@
     "query-streetviews": "cross-env NODE_ENV=test ./node_modules/.bin/babel-node ./src/scripts/queryForStreetviews.js -c ./config.json ./params.json"
   },
   "dependencies": {
-    "winston": "^3.2.1"
+    "rescape-ramda": "^1.5.77",
+    "winston": "^3.2.1",
+    "winston-transport-browserconsole": "^1.0.1"
   },
   "devDependencies": {
     "@babel/core": "^7.5.5",
@@ -122,6 +124,12 @@
     "env": {
       "test": {
         "plugins": [
+          [
+            "transform-es2015-modules-commonjs-simple",
+            {
+              "noMangle": true
+            }
+          ],
           [
             "@babel/plugin-transform-runtime",
             {
