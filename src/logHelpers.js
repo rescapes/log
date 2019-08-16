@@ -12,28 +12,36 @@ import {format, transports, loggers, createLogger} from 'winston';
 // By importing winston.loggers from here we ensure that the logs are inited
 export {loggers} from 'winston';
 const {combine, timestamp, json, label} = format;
+const isBrowser = new Function("try {return this===window;}catch(e){ return false;}");
+import {compact} from 'rescape-ramda';
 
 /**
  * The Transports can be updated using rescapeDefaultTransports.fileCombined.level = 'debug'
  * @type {{console: ConsoleTransportInstance, fileError: FileTransportInstance, fileCombined: FileTransportInstance}}
  */
-export const rescapeDefaultTransports = {
+export const rescapeDefaultTransports = compact({
   //
   // - Write to all logs with level `info` and below to `combined.log`
   // - Write all logs error (and below) to `error.log`.
   //
-  fileError: new transports.File({
-    filename: '/tmp/rescape-default-error.log',
-    level: 'error',
-    prettyPrint: true,
-    colorize: true,
-    silent: false,
-    timestamp: false
-  }),
-  fileCombined: new transports.File({filename: '/tmp/rescape-default-combined.log', level: 'info'}),
+  fileError: !isBrowser() ?
+    new transports.File({
+      filename: '/tmp/rescape-default-error.log',
+      level: 'error',
+      prettyPrint: true,
+      colorize: true,
+      silent: false,
+      timestamp: false
+    }) : null,
+
+  fileCombined: !isBrowser() ?
+    new transports.File({
+      filename: '/tmp/rescape-default-combined.log', level: 'info'
+    }) : null,
+
   // Send console info (and log if enabled) to STDOUT, error and warn to STDERR
-  console: new transports.Console({format: format.simple(), stderrLevels:['error', 'warn']})
-};
+  console: new transports.Console({format: format.simple(), stderrLevels: ['error', 'warn']})
+});
 
 const rescapeDefault = {
   format: combine(
@@ -44,10 +52,12 @@ const rescapeDefault = {
     json()
   ),
   defaultMeta: {service: 'user-service'},
-  transports: [
-    rescapeDefaultTransports.fileError,
-    rescapeDefaultTransports.fileCombined
-  ]
+  transports: isBrowser ?
+    [rescapeDefaultTransports.console] :
+    [
+      rescapeDefaultTransports.fileError,
+      rescapeDefaultTransports.fileCombined
+    ]
 };
 
 
