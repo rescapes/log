@@ -52,7 +52,7 @@ const rescapeDefault = {
     json()
   ),
   defaultMeta: {service: 'user-service'},
-  transports: isBrowser ?
+  transports: isBrowser() ?
     [rescapeDefaultTransports.console] :
     [
       rescapeDefaultTransports.fileError,
