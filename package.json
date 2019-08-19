@@ -39,7 +39,6 @@
     "query-streetviews": "cross-env NODE_ENV=test ./node_modules/.bin/babel-node ./src/scripts/queryForStreetviews.js -c ./config.json ./params.json"
   },
   "dependencies": {
-    "rescape-ramda": "^1.5.77",
     "winston": "^3.2.1",
     "winston-transport-browserconsole": "^1.0.1"
   },
@@ -79,7 +78,9 @@
     "rollup-plugin-terser": "^5.1.1",
     "rollup-watch": "4.3.1"
   },
-  "peerDependencies": {},
+  "peerDependencies": {
+    "rescape-ramda": ">=1.5.77"
+  },
   "jest": {
     "modulePaths": [
       "<rootDir>/src"
