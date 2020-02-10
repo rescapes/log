@@ -34,8 +34,8 @@
     "build-publish-minor": "yarn run build && yarn run publish-minor",
     "version-patch": "yarn --new-version version patch",
     "version-minor": "yarn --new-version version minor",
-    "publish-patch": "yarn run version-patch && yarn publish",
-    "publish-minor": "yarn run version-minor && yarn publish",
+    "publish-patch": "yarn version --patch && yarn publish --non-interactive",
+    "publish-minor": "yarn version --minor && yarn publish --non-interactive",
     "query-streetviews": "cross-env NODE_ENV=test ./node_modules/.bin/babel-node ./src/scripts/queryForStreetviews.js -c ./config.json ./params.json"
   },
   "dependencies": {
