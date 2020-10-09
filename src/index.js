@@ -11,5 +11,7 @@
 
 export {
   loggers,
-  rescapeDefaultTransports
+  rescapeTransports,
+  rescapeDefaultTransports,
+  configureLoggerForApp
 } from './logHelpers'

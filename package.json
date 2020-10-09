@@ -3,8 +3,7 @@
   "version": "0.1.13",
   "description": "Rescape logging library based on winston",
   "main": "lib/index.js",
-  "module": "esm/index.js",
-  "jsnext:main": "esm/index.js",
+  "module": "src/index.js",
   "repository": {
     "type": "git",
     "url": "git@github.com:calocan/rescape-log.git"

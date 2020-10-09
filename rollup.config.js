@@ -57,37 +57,6 @@ const configs = R.map(c => {
     plugins: R.concat(config.plugins, [
       nodeResolve({}), babel()
     ])
-  },
-
-  // ES for Browsers
-  {
-    output: {
-      dir: 'esm',
-      chunkFileNames: "[name]-[hash].mjs",
-      entryFileNames: "[name].mjs",
-      format: 'esm',
-      indent: true,
-      sourcemap: true
-    },
-    external: [
-      ...externals,
-      ...Object.keys(pkg.dependencies || {}),
-      ...Object.keys(pkg.peerDependencies || {})
-    ],
-    plugins: R.concat(config.plugins, [
-      nodeResolve({}),
-      replace({
-        'process.env.NODE_ENV': JSON.stringify('production')
-      }),
-      terser({
-        compress: {
-          pure_getters: true,
-          unsafe: true,
-          unsafe_comps: true,
-          warnings: false
-        }
-      })
-    ])
   }
 ]);
 export default configs;

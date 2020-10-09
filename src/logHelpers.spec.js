@@ -9,8 +9,8 @@
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-import {loggers, rescapeDefaultTransports} from './logHelpers';
-const log = loggers.get('rescapeDefault');
+import {loggers, rescapeTransports, rescapeDefaultTransports, configureLoggerForApp} from './logHelpers';
+import {unlinkSync, existsSync} from 'fs'
 
 //
 // Find items logged between today and yesterday.
@@ -19,21 +19,31 @@ const log = loggers.get('rescapeDefault');
 
 describe('logHelpers', () => {
   test('rescapeDefaultTransports', done => {
+    configureLoggerForApp({loggerName: 'unitTests'})
+    // Delete the log files
+    if (existsSync('/tmp/rescape-unitTests-info.log')) {
+      unlinkSync('/tmp/rescape-unitTests-info.log')
+    }
+    if (existsSync('/tmp/rescape-unitTests-error.log')) {
+      unlinkSync('/tmp/rescape-unitTests-error.log')
+    }
+    const log = loggers.get('unitTests');
+
+    configureLoggerForApp({loggerName: 'unitTestsNoDebug'}, 'info')
+    const logNoDebug = loggers.get('unitTestsNoDebug');
     const from = new Date();
-    rescapeDefaultTransports.fileCombined.level = 'info';
-    rescapeDefaultTransports.console.level = 'info';
-    log.info('Info');
-    log.debug('Debug Should not Display');
-    rescapeDefaultTransports.fileCombined.level = 'debug';
-    rescapeDefaultTransports.console.level = 'debug';
+    logNoDebug.info('Info');
+    logNoDebug.debug('Debug Should not Display');
     log.debug('Debug');
     const options = {
-      //from,
-      //until: new Date(),
-      order: 'desc',
-      //message: 'Debug Should not Display'
-//      fields: ['message']
+      from: Date.now() - 10000,
+      until: Date.now() + 10000,
+      rows: 2,
+      start: 0,
+      order: 'asc',
     };
+    log.info('Info to file')
+    log.warn('Warn to file')
     log.query(options, function (err, results) {
       if (err) {
         /* TODO: handle me */
@@ -43,7 +53,7 @@ describe('logHelpers', () => {
       //expect(results.file.length).toBeGreaterThan(0)
       done();
     });
-  });
+  }, 100000);
 
 });
 
