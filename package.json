@@ -1,7 +1,8 @@
 {
   "name": "rescape-log",
-  "version": "0.1.17",
+  "version": "0.1.18",
   "description": "Rescape logging library based on winston",
+  "main": "src/index.mjs",
   "module": "src/index.mjs",
   "type": "module",
   "repository": {
