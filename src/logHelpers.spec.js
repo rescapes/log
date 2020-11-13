@@ -9,8 +9,11 @@
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-import {loggers, rescapeTransports, rescapeDefaultTransports, configureLoggerForApp} from './logHelpers';
-import {unlinkSync, existsSync} from 'fs'
+import {configureLoggerForApp, rescapeDefaultTransports} from './logHelpers';
+import winston from 'winston';
+import {existsSync, unlinkSync} from 'fs';
+
+const {loggers} = winston;
 
 //
 // Find items logged between today and yesterday.

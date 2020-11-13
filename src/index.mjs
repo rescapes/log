@@ -10,7 +10,6 @@
  */
 
 export {
-  loggers,
   rescapeTransports,
   rescapeDefaultTransports,
   configureLoggerForApp

@@ -8,7 +8,7 @@ import * as R from 'ramda';
 
 const config = {
   input: [
-    'src/index.js',
+    'src/index.mjs',
     'src/logHelpers.js',
   ],
   plugins: []
@@ -42,6 +42,7 @@ const configs = R.map(c => {
     ])
   },
   // ES
+  /*
   {
     output: {
       dir: 'esm',
@@ -58,5 +59,6 @@ const configs = R.map(c => {
       nodeResolve({}), babel()
     ])
   }
+   */
 ]);
 export default configs;

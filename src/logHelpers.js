@@ -8,11 +8,12 @@
  *
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-import {format, loggers, transports} from 'winston';
+import winston from 'winston';
+const {format, loggers, transports} = winston;
 import {compact} from 'rescape-ramda';
 import * as R from 'ramda';
+
 // By importing winston.loggers from here we ensure that the logs are inited
-export {loggers} from 'winston';
 const {combine, timestamp, json, label} = format;
 const isBrowser = new Function("try {return this===window;}catch(e){ return false;}");
 
