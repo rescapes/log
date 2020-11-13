@@ -9,8 +9,7 @@
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 import winston from 'winston';
-
-const {format, loggers, transports} = winston;
+const {format, loggers: _loggers, transports} = winston
 import {compact} from 'rescape-ramda';
 import * as R from 'ramda';
 
@@ -105,7 +104,7 @@ const createLogger = ({appLogPath, loggerName}, env = process.env.NODE_ENV) => {
 export const rescapeDefaultTransports = rescapeTransports({});
 
 // The default rescape logger, logs to tmp with filename 'rescape-default-info|error'
-loggers.add('rescapeDefault', createLogger({}));
+_loggers.add('rescapeDefault', createLogger({}));
 
 /**
  * Custom logger for a certain app
@@ -116,12 +115,12 @@ loggers.add('rescapeDefault', createLogger({}));
  * @param [env] Override  process.env.NODE_ENV
  */
 export const configureLoggerForApp = ({loggerName, appLogPath}, env = process.env.NODE_ENV) => {
-  if (!loggers.has(loggerName)) {
-    loggers.add(loggerName, createLogger({loggerName, appLogPath}, env));
+  if (!_loggers.has(loggerName)) {
+    _loggers.add(loggerName, createLogger({loggerName, appLogPath}, env));
   }
 };
 
 // Test debuggers for forcing debug or info level console
-loggers.add('rescapeForceDebug', createLogger({}, 'test'));
-loggers.add('rescapeForceInfo', createLogger({}, 'not-test'));
-export {loggers} from 'winston';
+_loggers.add('rescapeForceDebug', createLogger({}, 'test'));
+_loggers.add('rescapeForceInfo', createLogger({}, 'not-test'));
+export const loggers = _loggers
