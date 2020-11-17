@@ -1,13 +1,13 @@
 {
-  "name": "rescape-log",
-  "version": "0.1.22",
+  "name": "@rescapes/log",
+  "version": "0.1.23",
   "description": "Rescape logging library based on winston",
   "main": "src/index.mjs",
   "module": "src/index.mjs",
   "type": "module",
   "repository": {
     "type": "git",
-    "url": "git@github.com:rescapes/rescape-log.git"
+    "url": "git@github.com:rescapes/log.git"
   },
   "author": "calocan <andy@likuski.org>",
   "license": "MIT",
