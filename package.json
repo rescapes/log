@@ -1,13 +1,13 @@
 {
   "name": "rescape-log",
-  "version": "0.1.21",
+  "version": "0.1.22",
   "description": "Rescape logging library based on winston",
   "main": "src/index.mjs",
   "module": "src/index.mjs",
   "type": "module",
   "repository": {
     "type": "git",
-    "url": "git@github.com:calocan/rescape-log.git"
+    "url": "git@github.com:rescapes/rescape-log.git"
   },
   "author": "calocan <andy@likuski.org>",
   "license": "MIT",
@@ -27,7 +27,7 @@
     "docs:prepare": "gitbook install",
     "docs:build": "yarn run docs:prepare && gitbook build -g calocan/resacpe-helpers && cp logo/apple-touch-icon.png _book/gitbook/images/apple-touch-icon-precomposed-152.png && cp logo/favicon.ico _book/gitbook/images",
     "docs:watch": "yarn run docs:prepare && gitbook serve",
-    "docs:publish": "yarn run docs:clean && yarn run docs:build && cp CNAME _book && cd _book && git init && git commit --allow-empty -m 'update book' && git checkout -b gh-pages && touch .nojekyll && git add . && git commit -am 'update book' && git push git@github.com:calocan/rescape-log gh-pages --force",
+    "docs:publish": "yarn run docs:clean && yarn run docs:build && cp CNAME _book && cd _book && git init && git commit --allow-empty -m 'update book' && git checkout -b gh-pages && touch .nojekyll && git add . && git commit -am 'update book' && git push git@github.com:rescape/log gh-pages --force",
     "build-publish-patch": "yarn run build && yarn run publish-patch",
     "build-publish-minor": "yarn run build && yarn run publish-minor",
     "version-patch": "yarn --new-version version patch",
@@ -40,6 +40,7 @@
     "winston-transport-browserconsole": "^1.0.5"
   },
   "devDependencies": {
+    "@rescapes/ramda": ">=1.6.159",
     "@types/jest": "^26.0.15",
     "cross-env": "^7.0.2",
     "dotenv": "8.2.0",
@@ -51,7 +52,6 @@
     "jest-cli": "^26.6.3",
     "promise": "8.1.0",
     "ramda": "^0.27.1",
-    "rescape-ramda": ">=1.6.159",
     "rollup": "^2.33.1",
     "rollup-plugin-babel": "^4.4.0",
     "rollup-plugin-commonjs": "10.1.0",
@@ -64,7 +64,7 @@
     "rollup-watch": "4.3.1"
   },
   "peerDependencies": {
-    "rescape-ramda": ">=1.6.159"
+    "@rescapes/ramda": ">=1.6.159"
   },
   "jest": {
     "modulePaths": [
