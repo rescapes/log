@@ -10,7 +10,7 @@
  */
 import winston from 'winston';
 const {format, loggers: _loggers, transports} = winston
-import {compact} from 'rescape-ramda';
+import {compact} from '@rescapes/ramda';
 import * as R from 'ramda';
 
 // By importing winston.loggers from here we ensure that the logs are inited
