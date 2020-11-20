@@ -9,13 +9,23 @@
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 import winston from 'winston';
-const {format, loggers: _loggers, transports} = winston
+
+const {format, loggers: _loggers, transports} = winston;
+import BrowserConsole from 'winston-transport-browserconsole';
 import {compact} from '@rescapes/ramda';
 import * as R from 'ramda';
 
 // By importing winston.loggers from here we ensure that the logs are inited
 const {combine, timestamp, json, label} = format;
 const isBrowser = new Function("try {return this===window;}catch(e){ return false;}");
+
+// Get the correct console transport for node or browser
+const nodeOrBrowserConsoleTransport = (...args) => {
+  return R.ifElse(() => isBrowser(),
+    args => new BrowserConsole(...args),
+    args => new transports.Console(...args)
+  )(args);
+};
 
 /**
  * Configures the winston transports for use by loggers
@@ -49,9 +59,13 @@ export const rescapeTransports = ({appLogPath = '/tmp', loggerName = 'default'})
     // Send console info (and log if enabled) to STDOUT, error and warn to STDERR
 
     // Messages up to and including info
-    console: new transports.Console({level: 'info', format: format.simple(), stderrLevels: ['error', 'warn']}),
+    console: nodeOrBrowserConsoleTransport({level: 'info', format: format.simple(), stderrLevels: ['error', 'warn']}),
     // Messages up to and including debug for testing
-    consoleDebug: new transports.Console({level: 'debug', format: format.simple(), stderrLevels: ['error', 'warn']})
+    consoleDebug: nodeOrBrowserConsoleTransport({
+      level: 'debug',
+      format: format.simple(),
+      stderrLevels: ['error', 'warn']
+    })
   });
 };
 
@@ -123,4 +137,4 @@ export const configureLoggerForApp = ({loggerName, appLogPath}, env = process.en
 // Test debuggers for forcing debug or info level console
 _loggers.add('rescapeForceDebug', createLogger({}, 'test'));
 _loggers.add('rescapeForceInfo', createLogger({}, 'not-test'));
-export const loggers = _loggers
+export const loggers = _loggers;
