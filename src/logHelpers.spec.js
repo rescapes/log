@@ -9,53 +9,18 @@
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-import {configureLoggerForApp, rescapeDefaultTransports} from './logHelpers.js';
-import winston from 'winston';
-import {existsSync, unlinkSync} from 'fs';
+import {loggers} from './logHelpers.js';
 
-const {loggers} = winston;
-
-//
-// Find items logged between today and yesterday.
-//
-
-
+// TODO this used to test winston, see the git history
 describe('logHelpers', () => {
   test('rescapeDefaultTransports', done => {
-    configureLoggerForApp({loggerName: 'unitTests'})
-    // Delete the log files
-    if (existsSync('/tmp/rescape-unitTests-info.log')) {
-      unlinkSync('/tmp/rescape-unitTests-info.log')
-    }
-    if (existsSync('/tmp/rescape-unitTests-error.log')) {
-      unlinkSync('/tmp/rescape-unitTests-error.log')
-    }
-    const log = loggers.get('unitTests');
-
-    configureLoggerForApp({loggerName: 'unitTestsNoDebug'}, 'info')
-    const logNoDebug = loggers.get('unitTestsNoDebug');
+    const logNoDebug = loggers.get('rescapeForceInfo');
     const from = new Date();
-    logNoDebug.info('Info');
+    logNoDebug.info('Information is the bestest');
     logNoDebug.debug('Debug Should not Display');
-    log.debug('Debug');
-    const options = {
-      from: Date.now() - 10000,
-      until: Date.now() + 10000,
-      rows: 2,
-      start: 0,
-      order: 'asc',
-    };
-    log.info('Info to file')
-    log.warn('Warn to file')
-    log.query(options, function (err, results) {
-      if (err) {
-        /* TODO: handle me */
-        throw err;
-      }
-      // TODO Can't query the logs
-      //expect(results.file.length).toBeGreaterThan(0)
-      done();
-    });
+
+
+    done();
   }, 100000);
 
 });

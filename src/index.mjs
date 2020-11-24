@@ -10,8 +10,5 @@
  */
 
 export {
-  rescapeTransports,
-  rescapeDefaultTransports,
-  configureLoggerForApp,
   loggers
 } from './logHelpers.js'
