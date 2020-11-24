@@ -22,10 +22,11 @@ logger.useDefaults();
  * @param {String} env Defaults to process.env.NODE_ENV
  * @returns {Object}
  */
-const createLogger = ({appLogPath, loggerName, forceDebug=false, forceInfo=false}, env = process.env.NODE_ENV) => {
-  const logr = logger.get(loggerName);
+const createLogger = ({appLogPath, name, forceDebug=false, forceInfo=false}, env = process.env.NODE_ENV) => {
+  const logr = logger.get(name);
 
   logr.setLevel(!forceInfo && ('test' === env || forceDebug) ? logger.DEBUG : logger.INFO);
+  logr.info(`Logger ${name} set  to ${logr.getLevel().name}`)
   return logr;
 };
 
