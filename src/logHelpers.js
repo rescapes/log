@@ -32,7 +32,7 @@ const createLogger = ({appLogPath, loggerName, forceDebug=false, forceInfo=false
 
 export const _loggers = {
 // The default rescape logger, logs to tmp with filename 'rescape-default-info|error'
-  rescapeDefault: createLogger({name: 'rescapeDefault'}),
+  rescapeDefault: createLogger({name: 'rescapeDefault', forceDebug: process.env.LOGGING_FORCE_DEBUG || false}),
   rescapeForceDebug: createLogger({name: 'test', forceDebug: true}),
   rescapeForceInfo: createLogger({name: 'not-test', forceInfo: true})
 };
