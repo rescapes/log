@@ -1,6 +1,6 @@
 {
   "name": "@rescapes/log",
-  "version": "0.1.29",
+  "version": "0.1.30",
   "description": "Rescape logging library based on winston",
   "main": "src/index.mjs",
   "module": "src/index.mjs",
